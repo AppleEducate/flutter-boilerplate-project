@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_local_notifications_provider/flutter_local_notifications_provider.dart';
 
 import 'constants/app_theme.dart';
 import 'locale/index.dart';
@@ -22,22 +24,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [
-        // ... app-specific localization delegate[s] here
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        const AppLocalizationsDelegate(),
-      ],
-      supportedLocales: AppLocalizationsDelegate.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (BuildContext context) {
-        return AppLocalizations.of(context).title;
-      },
-      theme: themeData,
-      darkTheme: themeDataDark,
-      routes: Routes.routes,
-      home: SplashScreen(),
-    );
+    return NotificationProvider(
+        service: FlutterLocalNotificationsPlugin(),
+        child: MaterialApp(
+          localizationsDelegates: [
+            // ... app-specific localization delegate[s] here
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            const AppLocalizationsDelegate(),
+          ],
+          supportedLocales: AppLocalizationsDelegate.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          onGenerateTitle: (BuildContext context) {
+            return AppLocalizations.of(context).title;
+          },
+          theme: themeData,
+          darkTheme: themeDataDark,
+          routes: Routes.routes,
+          home: SplashScreen(),
+        ));
   }
 }

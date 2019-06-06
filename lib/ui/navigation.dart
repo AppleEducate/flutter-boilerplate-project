@@ -1,14 +1,22 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/sharedpref/constants/index.dart';
 import '../locale/index.dart';
 import '../routes.dart';
+import '../utils/index.dart';
 import '../widgets/index.dart';
 import 'home/home.dart';
 import 'settings/settings.dart';
 
-class AppNavigation extends StatelessWidget {
+class AppNavigation extends StatefulWidget {
+  @override
+  _AppNavigationState createState() => _AppNavigationState();
+}
+
+class _AppNavigationState extends State<AppNavigation>
+    with AfterLayoutMixin<AppNavigation> {
   @override
   Widget build(BuildContext context) {
     return DynamicNavigation(
@@ -38,5 +46,23 @@ class AppNavigation extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    Notifications.setupNotifications(context).then((setup) {
+      //  -- Notifications Setup --
+      SharedPreferences.getInstance().then((preference) {
+        if (preference.getBool(Preferences.is_fresh_install) ?? true) {
+          Notifications.showNotification(
+            context,
+            id: 0,
+            title: 'Welcome',
+            body: 'Welcome to the app!',
+          );
+          preference.setBool(Preferences.is_fresh_install, false);
+        }
+      });
+    });
   }
 }

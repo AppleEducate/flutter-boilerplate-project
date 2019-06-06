@@ -22,6 +22,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+  # Run code after layout is complete
+  after_layout: ^1.0.7+1
+
+  # Push Notifications
+  flutter_local_notifications_provider: ^0.2.1
+
   # The following adds the shared pref as a dependency in your application
   shared_preferences: ^0.4.3
   localstorage: ^2.0.0

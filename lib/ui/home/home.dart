@@ -1,5 +1,6 @@
 import 'package:boilerplate/constants/index.dart';
 import 'package:boilerplate/models/post/index.dart';
+import 'package:boilerplate/utils/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -168,6 +169,19 @@ class PostDetailsScreen extends StatelessWidget {
       appBar: showAppBar
           ? AppBar(
               title: Text('Details'),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.add_alert),
+                  onPressed: () {
+                    Notifications.showNotification(
+                      context,
+                      id: post.id,
+                      title: post.title,
+                      body: post.body,
+                    );
+                  },
+                )
+              ],
             )
           : null,
       body: ListView(
