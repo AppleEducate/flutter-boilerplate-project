@@ -22,6 +22,11 @@ The Boilerplate contains the minimal implementation required to create a new lib
 * Code Generation
 * User Notifications
 * Logging
+* Push Notifications
+* Multi Language Support
+* Custom App Navigation
+* Auto Json Objects
+* Master Detail Layout
 
 ### Libraries & Tools Used
 
