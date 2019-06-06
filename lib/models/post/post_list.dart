@@ -9,7 +9,7 @@ class PostsList {
 
   factory PostsList.fromJson(List<dynamic> json) {
     List<Post> posts = List<Post>();
-    posts = json.map((post) => Post.fromMap(post)).toList();
+    posts = json.map((post) => Post.fromJson(post)).toList();
 
     return PostsList(
       posts: posts,

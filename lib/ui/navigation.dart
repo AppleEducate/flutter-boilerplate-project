@@ -26,7 +26,7 @@ class _AppNavigationState extends State<AppNavigation>
         Screen(
             iconData: Icons.home,
             iosIconData: CupertinoIcons.home,
-            title: AppLocalizations.of(context).posts_title,
+            title: AppLocalizations.of(context).strings.posts_title,
             child: HomeScreen(),
             actions: [
               IconButton(
@@ -44,7 +44,7 @@ class _AppNavigationState extends State<AppNavigation>
         Screen(
           iconData: Icons.settings,
           iosIconData: CupertinoIcons.settings,
-          title: AppLocalizations.of(context).settings_title,
+          title: AppLocalizations.of(context).strings.settings_title,
           child: SettingsScreen(),
         ),
       ],

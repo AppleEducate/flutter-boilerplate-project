@@ -36,8 +36,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizationsDelegate.supportedLocales,
           debugShowCheckedModeBanner: false,
           onGenerateTitle: (BuildContext context) {
-            return AppLocalizations.of(context).title;
+            return AppLocalizations.of(context).strings.title;
           },
+          // locale: Locale('en'),
           theme: themeData,
           darkTheme: themeDataDark,
           routes: Routes.routes,

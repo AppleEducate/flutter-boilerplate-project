@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _store.getPosts();
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -68,10 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Expanded(
-                child: PostDetailsScreen(
-                  post: _store.postsList.posts[_selectedIndex],
-                  showAppBar: false,
-                ),
+                child:
+                    _store?.postsList?.posts == null || _selectedIndex == null
+                        ? Center(
+                            child: Text(
+                                AppLocalizations.of(context).strings.post_not_selected))
+                        : PostDetailsScreen(
+                            post: _store.postsList.posts[_selectedIndex],
+                            showAppBar: false,
+                          ),
               ),
             ],
           );
@@ -136,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           )
-        : Center(child: Text(AppLocalizations.of(context).posts_not_found));
+        : Center(child: Text(AppLocalizations.of(context).strings.posts_not_found));
   }
 
   // General Methods:-----------------------------------------------------------

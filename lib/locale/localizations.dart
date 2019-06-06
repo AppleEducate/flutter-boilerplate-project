@@ -25,6 +25,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 
+import 'index.dart';
+
 class AppLocalizations {
   AppLocalizations(this.locale);
 
@@ -34,48 +36,34 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static Map<String, Map<String, String>> _localizedValues = {
-    'en': {
-      'title': 'Boilerplate Project',
-      'login_et_user_email': 'Enter user email',
-      'login_et_user_password': 'Enter password',
-      'login_btn_forgot_password': 'Forgot Password?',
-      'login_btn_sign_in': 'Sign In',
-      'login_validation_error': 'Please fill in all fields',
-      'posts_title': 'Posts',
-      'posts_not_found': 'No Posts Found',
-      'settings_title': 'Settings',
-    },
-    'es': {
-      'title': 'Proyecto repetitivo',
-      'login_et_user_email': 'Ingrese el email del usuario',
-      'login_et_user_password': 'introducir la contraseña',
-      'login_btn_forgot_password': 'Se te olvidó tu contraseña',
-      'login_btn_sign_in': 'Registrarse',
-      'login_validation_error': 'Por favor rellena todos los campos',
-      'posts_title': 'Mensajes',
-      'posts_not_found': 'No se han encontrado publicacionesd',
-      'settings_title': 'Ajustes',
-    },
+  static Map<String, Strings> _localizedValues = {
+    'en': Strings(
+      title: 'Boilerplate Project',
+      login_et_user_email: 'Enter user email',
+      login_et_user_password: 'Enter password',
+      login_btn_forgot_password: 'Forgot Password?',
+      login_btn_sign_in: 'Sign In',
+      login_validation_error: 'Please fill in all fields',
+      posts_title: 'Posts',
+      posts_not_found: 'No Posts Found',
+      post_not_selected: 'No Post Selected',
+      settings_title: 'Settings',
+    ),
+    'es': Strings(
+      title: 'Proyecto repetitivo',
+      login_et_user_email: 'Ingrese el email del usuario',
+      login_et_user_password: 'introducir la contraseña',
+      login_btn_forgot_password: 'Se te olvidó tu contraseña',
+      login_btn_sign_in: 'Registrarse',
+      login_validation_error: 'Por favor rellena todos los campos',
+      posts_title: 'Mensajes',
+      posts_not_found: 'No se han encontrado publicacionesd',
+      post_not_selected: 'Ninguna publicación seleccionada',
+      settings_title: 'Ajustes',
+    ),
   };
 
-  String get title => _localizedValues[locale.languageCode]['title'];
-  String get login_et_user_email =>
-      _localizedValues[locale.languageCode]['login_et_user_email'];
-  String get login_et_user_password =>
-      _localizedValues[locale.languageCode]['login_et_user_password'];
-  String get login_btn_forgot_password =>
-      _localizedValues[locale.languageCode]['login_btn_forgot_password'];
-  String get login_btn_sign_in =>
-      _localizedValues[locale.languageCode]['login_btn_sign_in'];
-  String get login_validation_error =>
-      _localizedValues[locale.languageCode]['login_validation_error'];
-  String get posts_title =>
-      _localizedValues[locale.languageCode]['posts_title'];
-  String get posts_not_found =>
-      _localizedValues[locale.languageCode]['posts_not_found'];
-  String get settings_title =>
-      _localizedValues[locale.languageCode]['settings_title'];
+  Strings get strings => _localizedValues[locale.languageCode];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

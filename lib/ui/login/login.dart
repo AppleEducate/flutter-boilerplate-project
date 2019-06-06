@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: AppLocalizations.of(context).login_et_user_email,
+          hint: AppLocalizations.of(context).strings.login_et_user_email,
           inputType: TextInputType.emailAddress,
           icon: Icons.person,
           iconColor: Colors.black54,
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: AppLocalizations.of(context).login_et_user_password,
+          hint: AppLocalizations.of(context).strings.login_et_user_password,
           isObscure: true,
           padding: EdgeInsets.only(top: 16.0),
           icon: Icons.lock,
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: FlatButton(
         padding: EdgeInsets.all(0.0),
         child: Text(
-          AppLocalizations.of(context).login_btn_forgot_password,
+          AppLocalizations.of(context).strings.login_btn_forgot_password,
           style: Theme.of(context)
               .textTheme
               .caption
@@ -204,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignInButton() {
     return RoundedButtonWidget(
-      buttonText: AppLocalizations.of(context).login_btn_sign_in,
+      buttonText: AppLocalizations.of(context).strings.login_btn_sign_in,
       buttonColor: Colors.orangeAccent,
       textColor: Colors.white,
       onPressed: () async {
@@ -212,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _store.login();
         } else {
           showErrorMessage(
-              context, AppLocalizations.of(context).login_validation_error);
+              context, AppLocalizations.of(context).strings.login_validation_error);
         }
       },
     );
