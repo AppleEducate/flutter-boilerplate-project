@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,6 +25,7 @@ class _AppNavigationState extends State<AppNavigation>
       children: [
         Screen(
             iconData: Icons.home,
+            iosIconData: CupertinoIcons.home,
             title: AppLocalizations.of(context).posts_title,
             child: HomeScreen(),
             actions: [
@@ -41,6 +43,7 @@ class _AppNavigationState extends State<AppNavigation>
             ]),
         Screen(
           iconData: Icons.settings,
+          iosIconData: CupertinoIcons.settings,
           title: AppLocalizations.of(context).settings_title,
           child: SettingsScreen(),
         ),
@@ -61,7 +64,7 @@ class _AppNavigationState extends State<AppNavigation>
       //  -- Notifications Setup --
       SharedPreferences.getInstance().then((preference) {
         if (preference.getBool(Preferences.is_fresh_install) ?? true) {
-          Notifications.showNotification(
+          Notifications.show(
             context,
             id: 0,
             title: 'Welcome',

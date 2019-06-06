@@ -173,7 +173,7 @@ class PostDetailsScreen extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.add_alert),
                   onPressed: () {
-                    Notifications.showNotification(
+                    Notifications.show(
                       context,
                       id: post.id,
                       title: post.title,
