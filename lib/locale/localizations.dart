@@ -36,40 +36,42 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static Map<String, Strings> _localizedValues = {
-    'en': Strings(
-      title: 'Boilerplate Project',
-      login_et_user_email: 'Enter user email',
-      login_et_user_password: 'Enter password',
-      login_btn_forgot_password: 'Forgot Password?',
-      login_btn_sign_in: 'Sign In',
-      login_validation_error: 'Please fill in all fields',
-      posts_title: 'Posts',
-      posts_not_found: 'No Posts Found',
-      post_not_selected: 'No Post Selected',
-      settings_title: 'Settings',
-    ),
-    'es': Strings(
-      title: 'Proyecto repetitivo',
-      login_et_user_email: 'Ingrese el email del usuario',
-      login_et_user_password: 'introducir la contraseña',
-      login_btn_forgot_password: 'Se te olvidó tu contraseña',
-      login_btn_sign_in: 'Registrarse',
-      login_validation_error: 'Por favor rellena todos los campos',
-      posts_title: 'Mensajes',
-      posts_not_found: 'No se han encontrado publicacionesd',
-      post_not_selected: 'Ninguna publicación seleccionada',
-      settings_title: 'Ajustes',
-    ),
-  };
-
   Strings get strings => _localizedValues[locale.languageCode];
 }
+
+Map<String, Strings> get localStrings => _localizedValues;
+
+const Map<String, Strings> _localizedValues = {
+  'en': Strings(
+    title: 'Boilerplate Project',
+    login_et_user_email: 'Enter user email',
+    login_et_user_password: 'Enter password',
+    login_btn_forgot_password: 'Forgot Password?',
+    login_btn_sign_in: 'Sign In',
+    login_validation_error: 'Please fill in all fields',
+    posts_title: 'Posts',
+    posts_not_found: 'No Posts Found',
+    post_not_selected: 'No Post Selected',
+    settings_title: 'Settings',
+  ),
+  'es': Strings(
+    title: 'Proyecto repetitivo',
+    login_et_user_email: 'Ingrese el email del usuario',
+    login_et_user_password: 'introducir la contraseña',
+    login_btn_forgot_password: 'Se te olvidó tu contraseña',
+    login_btn_sign_in: 'Registrarse',
+    login_validation_error: 'Por favor rellena todos los campos',
+    posts_title: 'Mensajes',
+    posts_not_found: 'No se han encontrado publicacionesd',
+    post_not_selected: 'Ninguna publicación seleccionada',
+    settings_title: 'Ajustes',
+  ),
+};
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
-  static List<Locale> get supportedLocales => [
+  static List<Locale> get supportedLocales => <Locale>[
         Locale('en', ''),
         Locale('es', ''),
       ];
