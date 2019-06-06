@@ -178,6 +178,7 @@ class PostDetailsScreen extends StatelessWidget {
                       id: post.id,
                       title: post.title,
                       body: post.body,
+                      payload: "${post.title}\n\n${post.body}",
                     );
                   },
                 )

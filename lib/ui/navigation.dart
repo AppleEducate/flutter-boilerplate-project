@@ -50,7 +50,14 @@ class _AppNavigationState extends State<AppNavigation>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    Notifications.setupNotifications(context).then((setup) {
+    Notifications.setupNotifications(context, onSelectNotification: (val) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => NotificationDetailsScreen(val),
+          fullscreenDialog: true,
+        ),
+      );
+    }).then((setup) {
       //  -- Notifications Setup --
       SharedPreferences.getInstance().then((preference) {
         if (preference.getBool(Preferences.is_fresh_install) ?? true) {
@@ -64,5 +71,21 @@ class _AppNavigationState extends State<AppNavigation>
         }
       });
     });
+  }
+}
+
+class NotificationDetailsScreen extends StatelessWidget {
+  NotificationDetailsScreen(this.payload);
+  final String payload;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notification'),
+      ),
+      body: Center(
+        child: Text(payload),
+      ),
+    );
   }
 }

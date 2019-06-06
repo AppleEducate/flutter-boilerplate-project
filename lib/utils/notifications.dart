@@ -32,10 +32,11 @@ class Notifications {
     return _setup ?? false;
   }
 
- static Future showNotification(
+  static Future showNotification(
     BuildContext context, {
     @required String title,
     @required String body,
+    String payload,
     int id = 0,
     NotificationDetails notificationDetails,
   }) async {
@@ -47,6 +48,11 @@ class Notifications {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await plugin.show(
-        id, title, body, notificationDetails ?? platformChannelSpecifics);
+      id,
+      title,
+      body,
+      notificationDetails ?? platformChannelSpecifics,
+      payload: payload ?? '',
+    );
   }
 }
