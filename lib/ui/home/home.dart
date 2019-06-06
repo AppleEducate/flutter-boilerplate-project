@@ -71,8 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child:
                     _store?.postsList?.posts == null || _selectedIndex == null
                         ? Center(
-                            child: Text(
-                                AppLocalizations.of(context).strings.post_not_selected))
+                            child: Text(AppLocalizations.of(context)
+                                .strings
+                                .post_not_selected))
                         : PostDetailsScreen(
                             post: _store.postsList.posts[_selectedIndex],
                             showAppBar: false,
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => PostDetailsScreen(
-                                  post: _store.postsList.posts[_selectedIndex],
+                                  post: _store.postsList.posts[val],
                                 ),
                           ),
                         );
@@ -141,7 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           )
-        : Center(child: Text(AppLocalizations.of(context).strings.posts_not_found));
+        : Center(
+            child: Text(AppLocalizations.of(context).strings.posts_not_found));
   }
 
   // General Methods:-----------------------------------------------------------
