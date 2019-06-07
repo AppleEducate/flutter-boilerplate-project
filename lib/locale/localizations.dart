@@ -58,7 +58,6 @@ class LocaleState extends ChangeNotifier {
 
   void changeLanguage(String value) {
     _locale = Locale(value);
-    print('Language: $value => ${_localizedValues.keys}');
     notifyListeners();
   }
 

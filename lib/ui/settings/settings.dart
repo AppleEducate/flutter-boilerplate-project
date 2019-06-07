@@ -14,17 +14,26 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.palette),
             title: Text(Provider.of<LocaleState>(context).strings.theme_title),
-            subtitle: Text(Provider.of<LocaleState>(context).strings.theme_subtitle),
+            subtitle:
+                Text(Provider.of<LocaleState>(context).strings.theme_subtitle),
+            onTap: () => navigate(context, ThemeSettings()),
           ),
           ListTile(
             leading: Icon(Icons.notifications),
-            title: Text(Provider.of<LocaleState>(context).strings.notifications_title),
-            subtitle: Text(Provider.of<LocaleState>(context).strings.notifications_subtitle),
+            title: Text(
+                Provider.of<LocaleState>(context).strings.notifications_title),
+            subtitle: Text(Provider.of<LocaleState>(context)
+                .strings
+                .notifications_subtitle),
+            onTap: () => navigate(context, NotificationsSettings()),
           ),
           ListTile(
             leading: Icon(Icons.language),
-            title: Text(Provider.of<LocaleState>(context).strings.translations_title),
-            subtitle: Text(Provider.of<LocaleState>(context).strings.modify_and_change_languages),
+            title: Text(
+                Provider.of<LocaleState>(context).strings.translations_title),
+            subtitle: Text(Provider.of<LocaleState>(context)
+                .strings
+                .modify_and_change_languages),
             onTap: () => navigate(context, TranslationHelpScreen()),
           ),
         ],
