@@ -179,6 +179,8 @@ class _EditLanguageViewState extends State<EditLanguageView> {
           edit_language: '',
           intro_subtitle: '',
           intro_title: '',
+          dark_mode_subtitle: '',
+          dark_mode_title: '',
         )?.toJson();
     _language = widget?.languageCode ?? null;
     super.initState();

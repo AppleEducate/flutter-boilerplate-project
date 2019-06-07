@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:boilerplate/providers/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,9 +65,14 @@ class _AppNavigationState extends State<AppNavigation>
     }).then((setup) {
       //  -- Notifications Setup --
       SharedPreferences.getInstance().then((preference) {
-        final _showFreshInstall = preference.getBool(Preferences.is_fresh_install) ?? true;
+        final _showFreshInstall =
+            preference.getBool(Preferences.is_fresh_install) ?? true;
         if (_showFreshInstall) {
           // -- Fresh Install --
+          final _theme = Provider.of<ThemeProvider>(context);
+          if (_theme.isPlatformDark(context)) {
+            _theme.changeBrightnessDark(true);
+          }
           Navigator.pushNamed(context, Routes.intro).then((_) {
             Future.delayed(Duration(seconds: 2)).then((_) {
               Notifications.show(

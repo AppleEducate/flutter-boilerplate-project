@@ -30,6 +30,7 @@ The Boilerplate contains the minimal implementation required to create a new lib
 * Intro Screen
 * Slidable Cell Actions
 * Drag and Drop List
+* Dark Mode (And Platform Dark Mode)
 
 ### Libraries & Tools Used
 
