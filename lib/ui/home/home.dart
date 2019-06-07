@@ -10,6 +10,7 @@ import '../../stores/post/post_store.dart';
 import '../../utils/index.dart';
 import '../../widgets/index.dart';
 import '../../widgets/progress_indicator_widget.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -45,22 +46,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   return MasterDetailView.builder(
                     itemCount: _store?.postsList?.posts?.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        selected: _tablet ? _selectedIndex == index : false,
-                        leading: Icon(Icons.cloud_circle),
-                        title: Text(
-                          '${_store.postsList.posts[index].title}',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                          style: Theme.of(context).textTheme.title,
+                      return Slidable(
+                        actionPane: SlidableDrawerActionPane(),
+                        actionExtentRatio: 0.25,
+                        child: ListTile(
+                          selected: _tablet ? _selectedIndex == index : false,
+                          leading: Icon(Icons.cloud_circle),
+                          title: Text(
+                            '${_store.postsList.posts[index].title}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          subtitle: Text(
+                            '${_store.postsList.posts[index].body}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                          ),
                         ),
-                        subtitle: Text(
-                          '${_store.postsList.posts[index].body}',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                        ),
+                        actions: <Widget>[
+                          IconSlideAction(
+                            caption: 'Archive',
+                            color: Colors.blue,
+                            icon: Icons.archive,
+                            onTap: () => _showSnackBar('Archive'),
+                          ),
+                          IconSlideAction(
+                            caption: 'Share',
+                            color: Colors.indigo,
+                            icon: Icons.share,
+                            onTap: () => _showSnackBar('Share'),
+                          ),
+                        ],
+                        secondaryActions: <Widget>[
+                          IconSlideAction(
+                            caption: 'More',
+                            color: Colors.black45,
+                            icon: Icons.more_horiz,
+                            onTap: () => _showSnackBar('More'),
+                          ),
+                          IconSlideAction(
+                            caption: 'Delete',
+                            color: Colors.red,
+                            icon: Icons.delete,
+                            onTap: () => _showSnackBar('Delete'),
+                          ),
+                        ],
                       );
                     },
                     detailsBuilder: (context, index, tablet) {
@@ -119,6 +152,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     return Container();
+  }
+
+  _showSnackBar(String s) {
+    FlushbarHelper.createInformation(
+      message: s,
+      title: 'Info',
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
 }
 
