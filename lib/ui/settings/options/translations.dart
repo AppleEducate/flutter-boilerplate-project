@@ -12,23 +12,28 @@ class TranslationHelpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(getLocale(context).translations_title),
+        centerTitle: true,
         actions: <Widget>[
           Consumer<LocaleProvider>(
             builder: (context, model, child) => IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => navigate<Map<String, Map<String, dynamic>>>(
-                        context,
-                        EditLanguageView(),
-                        fullScreen: true,
-                      ).then((data) {
-                        if (data != null) {
-                          final _key = data.keys.first;
-                          model.addLocale(_key, Strings.fromJson(data[_key]));
-                          Navigator.pop(context);
-                        }
-                      }),
-                ),
+                icon: Icon(Icons.restore), onPressed: () => model.reset(false)),
           ),
+          Consumer<LocaleProvider>(
+              builder: (context, model, child) => IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () =>
+                        navigate<Map<String, Map<String, dynamic>>>(
+                          context,
+                          EditLanguageView(),
+                          fullScreen: true,
+                        ).then((data) {
+                          if (data != null) {
+                            final _key = data.keys.first;
+                            model.addLocale(_key, Strings.fromJson(data[_key]));
+                            Navigator.pop(context);
+                          }
+                        }),
+                  )),
         ],
       ),
       body: SingleChildScrollView(
