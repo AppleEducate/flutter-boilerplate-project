@@ -1,13 +1,14 @@
+import 'package:boilerplate/constants/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/index.dart';
 import '../../locale/index.dart';
 import '../../models/post/index.dart';
 import '../../stores/post/post_store.dart';
 import '../../utils/index.dart';
+import '../../widgets/index.dart';
 import '../../widgets/progress_indicator_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,118 +33,77 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, dimens) {
-        if (MediaQuery.of(context).orientation == Orientation.landscape &&
-            dimens.maxWidth >= Dimens.tablet_breakpoint) {
-          return Row(
+        final _tablet =
+            MediaQuery.of(context).orientation == Orientation.landscape &&
+                dimens.maxWidth >= Dimens.tablet_breakpoint;
+
+        return Container(
+          child: Stack(
             children: <Widget>[
-              Container(
-                width: Dimens.tablet_list_width,
-                child: Stack(
-                  children: <Widget>[
-                    Observer(
-                      builder: (context) {
-                        return _store.loading
-                            ? CustomProgressIndicatorWidget()
-                            : Material(
-                                child: _buildListView((val) {
-                                if (mounted)
-                                  setState(() {
-                                    _selectedIndex = val;
-                                  });
-                              }, true));
-                      },
+              Observer(
+                builder: (context) {
+                  return MasterDetailView.builder(
+                    itemCount: _store?.postsList?.posts?.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        selected: _tablet ? _selectedIndex == index : false,
+                        leading: Icon(Icons.cloud_circle),
+                        title: Text(
+                          '${_store.postsList.posts[index].title}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style: Theme.of(context).textTheme.title,
+                        ),
+                        subtitle: Text(
+                          '${_store.postsList.posts[index].body}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                        ),
+                      );
+                    },
+                    detailsBuilder: (context, index, tablet) {
+                      return PostDetailsScreen(
+                        showAppBar: !tablet,
+                        post: _store.postsList.posts[index],
+                      );
+                    },
+                    selectedIndex: _selectedIndex,
+                    onSelected: (val) {
+                      if (mounted)
+                        setState(() {
+                          _selectedIndex = val;
+                        });
+                    },
+                    itemNotSelected: Center(
+                      child: Text(Provider.of<LocaleState>(context)
+                          .strings
+                          .post_not_selected),
                     ),
-                    Observer(
-                      name: 'error',
-                      builder: (context) {
-                        return _store.success
-                            ? Container()
-                            : showErrorMessage(
-                                context, _store.errorStore.errorMessage);
-                      },
-                    )
-                  ],
-                ),
+                    itemsNull: CustomProgressIndicatorWidget(),
+                    itemsEmpty: Center(
+                      child: Text(Provider.of<LocaleState>(context)
+                          .strings
+                          .posts_not_found),
+                    ),
+                  );
+                },
               ),
-              Expanded(
-                child:
-                    _store?.postsList?.posts == null || _selectedIndex == null
-                        ? Center(
-                            child: Text(Provider.of<LocaleState>(context)
-                                .strings
-                                .post_not_selected),
-                          )
-                        : PostDetailsScreen(
-                            post: _store.postsList.posts[_selectedIndex],
-                            showAppBar: false,
-                          ),
-              ),
+              Observer(
+                name: 'error',
+                builder: (context) {
+                  return _store.success
+                      ? Container()
+                      : showErrorMessage(
+                          context, _store.errorStore.errorMessage);
+                },
+              )
             ],
-          );
-        }
-        return Stack(
-          children: <Widget>[
-            Observer(
-              builder: (context) {
-                return _store.loading
-                    ? CustomProgressIndicatorWidget()
-                    : Material(
-                        child: _buildListView((val) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => PostDetailsScreen(
-                                  post: _store.postsList.posts[val],
-                                ),
-                          ),
-                        );
-                      }, false));
-              },
-            ),
-            Observer(
-              name: 'error',
-              builder: (context) {
-                return _store.success
-                    ? Container()
-                    : showErrorMessage(context, _store.errorStore.errorMessage);
-              },
-            )
-          ],
+          ),
         );
       },
     );
-  }
-
-  Widget _buildListView(ValueChanged<int> selected, bool tablet) {
-    return _store.postsList != null
-        ? ListView.separated(
-            itemCount: _store.postsList.posts.length,
-            separatorBuilder: (context, position) {
-              return Divider();
-            },
-            itemBuilder: (context, position) {
-              return ListTile(
-                selected: tablet ? _selectedIndex == position : false,
-                leading: Icon(Icons.cloud_circle),
-                title: Text(
-                  '${_store.postsList.posts[position].title}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  style: Theme.of(context).textTheme.title,
-                ),
-                subtitle: Text(
-                  '${_store.postsList.posts[position].body}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                ),
-                onTap: () => selected(position),
-              );
-            },
-          )
-        : Center(
-            child: Text(
-                Provider.of<LocaleState>(context).strings.posts_not_found));
   }
 
   // General Methods:-----------------------------------------------------------
