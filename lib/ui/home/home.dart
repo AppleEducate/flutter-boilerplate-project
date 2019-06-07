@@ -1,16 +1,15 @@
-import 'package:boilerplate/constants/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../locale/index.dart';
+import '../../constants/index.dart';
 import '../../models/post/index.dart';
+import '../../providers/index.dart';
 import '../../stores/post/post_store.dart';
 import '../../utils/index.dart';
 import '../../widgets/index.dart';
 import '../../widgets/progress_indicator_widget.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -110,15 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                     },
                     itemNotSelected: Center(
-                      child: Text(Provider.of<LocaleState>(context)
-                          .strings
-                          .post_not_selected),
+                      child: Text(getLocale(context).post_not_selected),
                     ),
                     itemsNull: CustomProgressIndicatorWidget(),
                     itemsEmpty: Center(
-                      child: Text(Provider.of<LocaleState>(context)
-                          .strings
-                          .posts_not_found),
+                      child: Text(getLocale(context).posts_not_found),
                     ),
                   );
                 },

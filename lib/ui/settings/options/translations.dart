@@ -1,3 +1,4 @@
+import 'package:boilerplate/providers/index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
@@ -10,10 +11,9 @@ class TranslationHelpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(Provider.of<LocaleState>(context).strings.translations_title),
+        title: Text(getLocale(context).translations_title),
         actions: <Widget>[
-          Consumer<LocaleState>(
+          Consumer<LocaleProvider>(
             builder: (context, model, child) => IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () => navigate<Map<String, Map<String, dynamic>>>(
@@ -33,7 +33,7 @@ class TranslationHelpScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Consumer<LocaleState>(
+          child: Consumer<LocaleProvider>(
               builder: (context, model, child) => Column(
                     children: <Widget>[
                       ListTile(
@@ -41,9 +41,7 @@ class TranslationHelpScreen extends StatelessWidget {
                           value:
                               AppLocalizations.of(context).locale.languageCode,
                           decoration: InputDecoration(
-                              labelText: Provider.of<LocaleState>(context)
-                                  .strings
-                                  .current_language),
+                              labelText: getLocale(context).current_language),
                           onChanged: model.changeLanguage,
                           items: [
                             for (var code in model.localizedValues.keys) ...[
@@ -100,7 +98,7 @@ class LanguageView extends StatelessWidget {
       appBar: AppBar(
         title: Text('${languageCodes[languageCode]}'),
         actions: <Widget>[
-          Consumer<LocaleState>(
+          Consumer<LocaleProvider>(
             builder: (context, model, child) => IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () => navigate<Map<String, Map<String, dynamic>>>(
@@ -192,8 +190,8 @@ class _EditLanguageViewState extends State<EditLanguageView> {
       appBar: AppBar(
         title: Text(
           widget?.languageCode == null || widget.languageCode.isEmpty
-              ? Provider.of<LocaleState>(context).strings.new_language
-              : Provider.of<LocaleState>(context).strings.edit_language,
+              ? getLocale(context).new_language
+              : getLocale(context).edit_language,
         ),
         actions: <Widget>[
           IconButton(
@@ -220,13 +218,10 @@ class _EditLanguageViewState extends State<EditLanguageView> {
                 ListTile(
                   title: DropdownButtonFormField<String>(
                     value: _language,
-                    decoration: InputDecoration(
-                        labelText:
-                            Provider.of<LocaleState>(context).strings.language),
+                    decoration:
+                        InputDecoration(labelText: getLocale(context).language),
                     validator: (val) => val == null || val.isEmpty
-                        ? Provider.of<LocaleState>(context)
-                            .strings
-                            .language_required
+                        ? getLocale(context).language_required
                         : null,
                     onSaved: (val) => _language = val,
                     onChanged: (val) {

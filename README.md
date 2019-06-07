@@ -44,6 +44,12 @@ The Boilerplate contains the minimal implementation required to create a new lib
 * [Notifications](https://github.com/AndreHaueisen/flushbar)
 * [Json Serialization](https://github.com/dart-lang/json_serializable)
 
+## Locale
+
+Update Strings.dart and run:
+
+`flutter packages pub run build_runner watch  --delete-conflicting-outputs`
+
 ### MobX
 
 MobX is a battle tested, simple and scalable state management library transparently applying functional reactive programming. The Mobx design principle is very simple:

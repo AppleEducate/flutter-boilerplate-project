@@ -1,6 +1,6 @@
-import 'package:boilerplate/locale/index.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import '../../../providers/index.dart';
 
 class NotificationsSettings extends StatelessWidget {
   @override
@@ -8,7 +8,7 @@ class NotificationsSettings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text(Provider.of<LocaleState>(context).strings.notifications_title),
+            Text(getLocale(context).notifications_title),
       ),
     );
   }

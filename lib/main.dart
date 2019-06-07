@@ -29,11 +29,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<LocaleState>.value(listenable: LocaleState()),
+        ListenableProvider<LocaleProvider>.value(listenable: LocaleProvider()..init()),
         ListenableProvider<ThemeProvider>.value(listenable: ThemeProvider()..init()),
       ],
       child: Consumer<ThemeProvider>(
-          builder: (context, theme, child) => Consumer<LocaleState>(
+          builder: (context, theme, child) => Consumer<LocaleProvider>(
                 builder: (context, locale, child) => NotificationProvider(
                     service: FlutterLocalNotificationsPlugin(),
                     child: MaterialApp(

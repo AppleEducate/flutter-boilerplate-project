@@ -1,12 +1,11 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:boilerplate/providers/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/sharedpref/constants/index.dart';
-import '../locale/index.dart';
+import '../providers/index.dart';
 import '../routes.dart';
 import '../utils/index.dart';
 import '../widgets/index.dart';
@@ -28,7 +27,7 @@ class _AppNavigationState extends State<AppNavigation>
         Screen(
             iconData: Icons.home,
             iosIconData: CupertinoIcons.home,
-            title: Provider.of<LocaleState>(context).strings.posts_title,
+            title: getLocale(context).posts_title,
             child: HomeScreen(),
             actions: [
               IconButton(
@@ -46,7 +45,7 @@ class _AppNavigationState extends State<AppNavigation>
         Screen(
           iconData: Icons.settings,
           iosIconData: CupertinoIcons.settings,
-          title: Provider.of<LocaleState>(context).strings.settings_title,
+          title: getLocale(context).settings_title,
           child: SettingsScreen(),
         ),
       ],
