@@ -1,9 +1,10 @@
-import 'package:boilerplate/constants/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants/index.dart';
 import '../../data/sharedpref/constants/preferences.dart';
 import '../../locale/index.dart';
 import '../../routes.dart';
@@ -153,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: AppLocalizations.of(context).strings.login_et_user_email,
+          hint: Provider.of<LocaleState>(context).strings.login_hint_user_email,
           inputType: TextInputType.emailAddress,
           icon: Icons.person,
           iconColor: Colors.black54,
@@ -172,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: AppLocalizations.of(context).strings.login_et_user_password,
+          hint: Provider.of<LocaleState>(context).strings.login_hint_user_password,
           isObscure: true,
           padding: EdgeInsets.only(top: 16.0),
           icon: Icons.lock,
@@ -191,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: FlatButton(
         padding: EdgeInsets.all(0.0),
         child: Text(
-          AppLocalizations.of(context).strings.login_btn_forgot_password,
+         Provider.of<LocaleState>(context).strings.login_button_forgot_password,
           style: Theme.of(context)
               .textTheme
               .caption
@@ -204,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignInButton() {
     return RoundedButtonWidget(
-      buttonText: AppLocalizations.of(context).strings.login_btn_sign_in,
+      buttonText: Provider.of<LocaleState>(context).strings.login_button_sign_in,
       buttonColor: Colors.orangeAccent,
       textColor: Colors.white,
       onPressed: () async {
@@ -212,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _store.login();
         } else {
           showErrorMessage(
-              context, AppLocalizations.of(context).strings.login_validation_error);
+              context, Provider.of<LocaleState>(context).strings.login_validation_error);
         }
       },
     );

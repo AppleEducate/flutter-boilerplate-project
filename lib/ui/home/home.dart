@@ -4,6 +4,7 @@ import 'package:boilerplate/utils/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/sharedpref/constants/preferences.dart';
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child:
                     _store?.postsList?.posts == null || _selectedIndex == null
                         ? Center(
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(Provider.of<LocaleState>(context)
                                 .strings
                                 .post_not_selected))
                         : PostDetailsScreen(
@@ -143,7 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           )
         : Center(
-            child: Text(AppLocalizations.of(context).strings.posts_not_found));
+            child: Text(
+                Provider.of<LocaleState>(context).strings.posts_not_found));
   }
 
   // General Methods:-----------------------------------------------------------

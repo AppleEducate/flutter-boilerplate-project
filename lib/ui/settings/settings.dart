@@ -1,6 +1,8 @@
-import 'package:boilerplate/utils/index.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../locale/index.dart';
+import '../../utils/index.dart';
 import 'options/index.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -11,18 +13,18 @@ class SettingsScreen extends StatelessWidget {
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.palette),
-            title: Text('Theme'),
-            subtitle: Text('Look and Feel'),
+            title: Text(Provider.of<LocaleState>(context).strings.theme_title),
+            subtitle: Text(Provider.of<LocaleState>(context).strings.theme_subtitle),
           ),
           ListTile(
             leading: Icon(Icons.notifications),
-            title: Text('Notifications'),
-            subtitle: Text('Push Notifications'),
+            title: Text(Provider.of<LocaleState>(context).strings.notifications_title),
+            subtitle: Text(Provider.of<LocaleState>(context).strings.notifications_subtitle),
           ),
           ListTile(
             leading: Icon(Icons.language),
-            title: Text('Translations'),
-            subtitle: Text('Modify and Request Languages'),
+            title: Text(Provider.of<LocaleState>(context).strings.translations_title),
+            subtitle: Text(Provider.of<LocaleState>(context).strings.modify_and_change_languages),
             onTap: () => navigate(context, TranslationHelpScreen()),
           ),
         ],

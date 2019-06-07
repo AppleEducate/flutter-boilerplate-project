@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_local_notifications_provider/flutter_local_notifications_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'constants/app_theme.dart';
 import 'locale/index.dart';
@@ -25,25 +26,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationProvider(
-        service: FlutterLocalNotificationsPlugin(),
-        child: MaterialApp(
-          localizationsDelegates: [
-            // ... app-specific localization delegate[s] here
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            const AppLocalizationsDelegate(),
-          ],
-          supportedLocales: AppLocalizationsDelegate.supportedLocales,
-          debugShowCheckedModeBanner: false,
-          onGenerateTitle: (BuildContext context) {
-            return AppLocalizations.of(context).strings.title;
-          },
-          // locale: Locale('en'),
-          theme: themeData,
-          darkTheme: themeDataDark,
-          routes: Routes.routes,
-          home: SplashScreen(),
-        ));
+    return MultiProvider(
+      providers: [
+        ListenableProvider<LocaleState>(builder: (_) => LocaleState()),
+      ],
+      child: Consumer<LocaleState>(
+        builder: (context, model, child) => NotificationProvider(
+            service: FlutterLocalNotificationsPlugin(),
+            child: MaterialApp(
+              localizationsDelegates: [
+                // ... app-specific localization delegate[s] here
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                AppLocalizationsDelegate(model),
+              ],
+              supportedLocales:
+                  model.localizedValues.keys.map((k) => Locale(k)).toList(),
+              debugShowCheckedModeBanner: false,
+              onGenerateTitle: (BuildContext context) {
+                return model?.strings?.title ?? '';
+              },
+              locale: model?.locale,
+              theme: themeData,
+              darkTheme: themeDataDark,
+              routes: Routes.routes,
+              home: SplashScreen(),
+            )),
+      ),
+    );
   }
 }
