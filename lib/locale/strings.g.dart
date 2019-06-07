@@ -30,7 +30,9 @@ Strings _$StringsFromJson(Map<String, dynamic> json) {
       notifications_title: json['notifications_title'] as String,
       notifications_subtitle: json['notifications_subtitle'] as String,
       theme_title: json['theme_title'] as String,
-      theme_subtitle: json['theme_subtitle'] as String);
+      theme_subtitle: json['theme_subtitle'] as String,
+      intro_subtitle: json['intro_subtitle'] as String,
+      intro_title: json['intro_title'] as String);
 }
 
 Map<String, dynamic> _$StringsToJson(Strings instance) => <String, dynamic>{
@@ -54,5 +56,7 @@ Map<String, dynamic> _$StringsToJson(Strings instance) => <String, dynamic>{
       'notifications_title': instance.notifications_title,
       'notifications_subtitle': instance.notifications_subtitle,
       'theme_title': instance.theme_title,
-      'theme_subtitle': instance.theme_subtitle
+      'theme_subtitle': instance.theme_subtitle,
+      'intro_title': instance.intro_title,
+      'intro_subtitle': instance.intro_subtitle
     };

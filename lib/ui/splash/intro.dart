@@ -75,6 +75,7 @@ class IntroScreenState extends State<IntroScreen> {
 
   void onDonePress() {
     // Do what you want
+    Navigator.pop(context);
   }
 
   void onTabChangeCompleted(index) {

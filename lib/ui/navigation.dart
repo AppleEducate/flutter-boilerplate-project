@@ -64,14 +64,20 @@ class _AppNavigationState extends State<AppNavigation>
     }).then((setup) {
       //  -- Notifications Setup --
       SharedPreferences.getInstance().then((preference) {
-        if (preference.getBool(Preferences.is_fresh_install) ?? true) {
-          Notifications.show(
-            context,
-            id: 0,
-            title: 'Welcome',
-            body: 'Welcome to the app!',
-          );
-          preference.setBool(Preferences.is_fresh_install, false);
+        final _showFreshInstall = preference.getBool(Preferences.is_fresh_install) ?? true;
+        if (_showFreshInstall) {
+          // -- Fresh Install --
+          Navigator.pushNamed(context, Routes.intro).then((_) {
+            Future.delayed(Duration(seconds: 2)).then((_) {
+              Notifications.show(
+                context,
+                id: 0,
+                title: 'Welcome',
+                body: 'Welcome to the app!',
+              );
+              preference.setBool(Preferences.is_fresh_install, false);
+            });
+          });
         }
       });
     });

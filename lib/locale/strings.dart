@@ -27,6 +27,8 @@ class Strings {
     @required this.notifications_subtitle,
     @required this.theme_title,
     @required this.theme_subtitle,
+    @required this.intro_subtitle,
+    @required this.intro_title,
   });
   final String title;
   final String login_hint_user_email;
@@ -49,6 +51,8 @@ class Strings {
   final String notifications_subtitle;
   final String theme_title;
   final String theme_subtitle;
+  final String intro_title;
+  final String intro_subtitle;
 
   factory Strings.fromJson(Map<String, dynamic> json) =>
       _$StringsFromJson(json);

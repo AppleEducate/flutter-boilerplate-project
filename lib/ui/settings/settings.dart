@@ -1,10 +1,8 @@
-import 'package:boilerplate/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../locale/index.dart';
-import '../../utils/index.dart';
-import 'options/index.dart';
+import '../../routes.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -36,6 +34,13 @@ class SettingsScreen extends StatelessWidget {
                 .strings
                 .modify_and_change_languages),
             onTap: () => Navigator.pushNamed(context, Routes.translations),
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text(Provider.of<LocaleState>(context).strings.intro_title),
+            subtitle:
+                Text(Provider.of<LocaleState>(context).strings.intro_subtitle),
+            onTap: () => Navigator.pushNamed(context, Routes.intro),
           ),
         ],
       ),

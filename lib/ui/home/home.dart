@@ -1,16 +1,13 @@
-import 'package:boilerplate/constants/index.dart';
-import 'package:boilerplate/models/post/index.dart';
-import 'package:boilerplate/utils/index.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/sharedpref/constants/preferences.dart';
+import '../../constants/index.dart';
 import '../../locale/index.dart';
-import '../../routes.dart';
+import '../../models/post/index.dart';
 import '../../stores/post/post_store.dart';
+import '../../utils/index.dart';
 import '../../widgets/progress_indicator_widget.dart';
 
 class HomeScreen extends StatefulWidget {
