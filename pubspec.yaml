@@ -23,6 +23,12 @@ dependencies:
   cupertino_icons: ^0.1.2
   recase: ^2.0.1
 
+  # Intro Screens
+  intro_slider: ^2.2.0
+
+  # Cell Slide Actions
+  flutter_slidable: ^0.5.3
+
   # Run code after layout is complete
   after_layout: ^1.0.7+1
 

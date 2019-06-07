@@ -74,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? Center(
                             child: Text(Provider.of<LocaleState>(context)
                                 .strings
-                                .post_not_selected))
+                                .post_not_selected),
+                          )
                         : PostDetailsScreen(
                             post: _store.postsList.posts[_selectedIndex],
                             showAppBar: false,
