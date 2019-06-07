@@ -13,6 +13,7 @@ class MasterDetailView extends StatelessWidget {
     this.itemNotSelected,
     this.itemsEmpty,
     this.itemsNull,
+    this.showSeperator = true,
   }) : _delegate = SliverChildListDelegate(
           children,
           addAutomaticKeepAlives: false,
@@ -29,6 +30,7 @@ class MasterDetailView extends StatelessWidget {
     this.itemsEmpty,
     this.itemsNull,
     this.selectedIndex,
+    this.showSeperator = true,
   }) : _delegate = SliverChildBuilderDelegate(
           itemBuilder,
           childCount: itemCount,
@@ -42,8 +44,10 @@ class MasterDetailView extends StatelessWidget {
   final selectedIndex;
   final SliverChildDelegate _delegate;
   final Widget Function(BuildContext, int, bool) detailsBuilder;
+  final bool showSeperator;
 
-  Widget _buildListView(ValueChanged<int> selected, bool tablet) {
+  Widget _buildListView(BuildContext context, ValueChanged<int> selected,
+      {bool tablet = false}) {
     final _length = _delegate.estimatedChildCount;
 
     if (_length == null) {
@@ -56,21 +60,19 @@ class MasterDetailView extends StatelessWidget {
         child: itemsEmpty ?? Container(),
       );
     }
+
     return ListView.separated(
       itemCount: _length,
       shrinkWrap: true,
-      separatorBuilder: (context, position) {
-        return Divider();
-      },
+      separatorBuilder: (context, position) =>
+          showSeperator ? Divider() : Container(),
       addAutomaticKeepAlives: false,
       addRepaintBoundaries: false,
       addSemanticIndexes: false,
-      itemBuilder: (context, position) {
-        return GestureDetector(
-          onTap: () => selected(position),
-          child: _delegate.build(context, position),
-        );
-      },
+      itemBuilder: (context, position) => GestureDetector(
+            onTap: () => selected(position),
+            child: _delegate.build(context, position),
+          ),
     );
   }
 
@@ -90,7 +92,9 @@ class MasterDetailView extends StatelessWidget {
                     if (_length == null) {
                       return CustomProgressIndicatorWidget();
                     }
-                    return Material(child: _buildListView(onSelected, true));
+                    return Material(
+                        child:
+                            _buildListView(context, onSelected, tablet: true));
                   },
                 ),
               ),
@@ -109,6 +113,7 @@ class MasterDetailView extends StatelessWidget {
             }
             return Material(
                 child: _buildListView(
+              context,
               (val) {
                 onSelected(val);
                 Navigator.of(context).push(
@@ -117,7 +122,7 @@ class MasterDetailView extends StatelessWidget {
                   ),
                 );
               },
-              false,
+              tablet: false,
             ));
           },
         );
